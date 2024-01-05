@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 
-data = pd.read_csv('dataset.csv', header=None)
+data = pd.read_csv('dataset.csv', header=None, skiprows=1)
 
 
 X = data.iloc[:, :-1].values
@@ -20,9 +20,9 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Dense(4, activation='softmax')])
 
 
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrix=['accuracy'])
+model.compile(optimizer="adam",
+              loss= "sparse_categorical_crossentropy",
+              metrics=["accuracy"])
 
 
 model.fit(X_train, Y_train, epochs=100)

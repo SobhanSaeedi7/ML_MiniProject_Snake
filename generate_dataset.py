@@ -36,19 +36,19 @@ class MyGame(arcade.Window):
         All the logic to move, and the game logic goes here.
         """
 
-        data = {'wu':None,
-                'wr':None,
-                'wd':None,
-                'wl':None,
-                'au':None,
-                'ar':None,
-                'ad':None,
-                'al':None,
-                'bu':None,
-                'br':None,
-                'bd':None,
-                'bl':None,
-                'direction':None}    
+        data = {'wu':0,
+                'wr':0,
+                'wd':0,
+                'wl':0,
+                'au':0,
+                'ar':0,
+                'ad':0,
+                'al':0,
+                'bu':0,
+                'br':0,
+                'bd':0,
+                'bl':0,
+                'direction':0}    
 
         self.snake.on_update(delta_time)
         self.apple.on_update()
@@ -60,19 +60,19 @@ class MyGame(arcade.Window):
         if self.snake.center_y > self.apple.center_y:
             self.snake.change_x = 0
             self.snake.change_y = -1
-            data['direction'] = 'd'
+            data['direction'] = '2'
         elif self.snake.center_y < self.apple.center_y:
             self.snake.change_x = 0
             self.snake.change_y = 1
-            data['direction'] = 'u'
+            data['direction'] = '0'
         elif self.snake.center_x > self.apple.center_x:
             self.snake.change_x = -1
             self.snake.change_y = 0
-            data['direction'] = 'l'
+            data['direction'] = '3'
         elif self.snake.center_x < self.apple.center_x:
             self.snake.change_x = 1
             self.snake.change_y = 0
-            data['direction'] = 'r'
+            data['direction'] = '1'
 
         if self.snake.center_x == self.apple.center_x and self.snake.center_y < self.apple.center_y:
             data['au'] = 1
@@ -121,7 +121,7 @@ class MyGame(arcade.Window):
                 data['br'] = 0
                 data['bd'] = 0
                 data['bl'] = 1
-
+        # print(data)
         self.dataset.append(data)
 
     def on_key_release(self, key, modifiers):

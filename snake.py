@@ -10,7 +10,7 @@ class Snake(arcade.Sprite):
         self.speed = 8
         self.center_x = SCREEN_WIDTH // 2
         self.center_y = SCREEN_HEIGHT // 2
-        self.change_x = 1
+        self.change_x = 0
         self.change_y = 0
         self.width = 16
         self.height = 16

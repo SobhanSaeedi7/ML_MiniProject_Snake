@@ -1,4 +1,5 @@
 import tensorflow as tf
+import numpy as np
 import arcade
 
 from snake import Snake
@@ -41,70 +42,88 @@ class MyGame(arcade.Window):
             self.snake.eat()
             self.apple = Apple(SCREEN_WIDTH, SCREEN_HEIGHT)
 
-        data = {}
+        dict_data = {'wu':0,
+                'wr':0,
+                'wd':0,
+                'wl':0,
+                'au':0,
+                'ar':0,
+                'ad':0,
+                'al':0,
+                'bu':0,
+                'br':0,
+                'bd':0,
+                'bl':0}
 
         if self.snake.center_x == self.apple.center_x and self.snake.center_y < self.apple.center_y:
-            data['au'] = 1
-            data['ar'] = 0
-            data['ad'] = 0
-            data['al'] = 0
+            print('yeah')
+            dict_data['au'] = 1
+            dict_data['ar'] = 0
+            dict_data['ad'] = 0
+            dict_data['al'] = 0
         elif self.snake.center_x == self.apple.center_x and self.snake.center_y > self.apple.center_y:
-            data['au'] = 0
-            data['ar'] = 0
-            data['ad'] = 1
-            data['al'] = 0
+            dict_data['au'] = 0
+            dict_data['ar'] = 0
+            dict_data['ad'] = 1
+            dict_data['al'] = 0
         elif self.snake.center_x < self.apple.center_x and self.snake.center_y == self.apple.center_y:
-            data['au'] = 0
-            data['ar'] = 1
-            data['ad'] = 0
-            data['al'] = 0
+            dict_data['au'] = 0
+            dict_data['ar'] = 1
+            dict_data['ad'] = 0
+            dict_data['al'] = 0
         elif self.snake.center_x > self.apple.center_x and self.snake.center_y == self.apple.center_y:
-            data['au'] = 0
-            data['ar'] = 0
-            data['ad'] = 0
-            data['al'] = 1
+            dict_data['au'] = 0
+            dict_data['ar'] = 0
+            dict_data['ad'] = 0
+            dict_data['al'] = 1
 
-        data['wu'] = SCREEN_HEIGHT - self.snake.center_y
-        data['wr'] = SCREEN_WIDTH - self.snake.center_x
-        data['wd'] = self.snake.center_y
-        data['wl'] = self.snake.center_x
+        dict_data['wu'] = SCREEN_HEIGHT - self.snake.center_y
+        dict_data['wr'] = SCREEN_WIDTH - self.snake.center_x
+        dict_data['wd'] = self.snake.center_y
+        dict_data['wl'] = self.snake.center_x
 
         for part in self.snake.body:
-            if self.snake.center_x == part['center_x'] and self.snake.center_y < part['center_y']:
-                data['bu'] = 1
-                data['br'] = 0
-                data['bd'] = 0
-                data['bl'] = 0
+            if self.snake.center_y < part['center_y']:
+                dict_data['bu'] = 1
+                dict_data['br'] = 0
+                dict_data['bd'] = 0
+                dict_data['bl'] = 0
             elif self.snake.center_x == part['center_x'] and self.snake.center_y > part['center_y']:
-                data['bu'] = 0
-                data['br'] = 0
-                data['bd'] = 1
-                data['bl'] = 0
+                dict_data['bu'] = 0
+                dict_data['br'] = 0
+                dict_data['bd'] = 1
+                dict_data['bl'] = 0
             elif self.snake.center_x < part['center_x'] and self.snake.center_y == part['center_y']:
-                data['bu'] = 0
-                data['br'] = 1
-                data['bd'] = 0
-                data['bl'] = 0
+                dict_data['bu'] = 0
+                dict_data['br'] = 1
+                dict_data['bd'] = 0
+                dict_data['bl'] = 0
             elif self.snake.center_x > part['center_x'] and self.snake.center_y == part['center_y']:
-                data['bu'] = 0
-                data['br'] = 0
-                data['bd'] = 0
-                data['bl'] = 1
+                dict_data['bu'] = 0
+                dict_data['br'] = 0
+                dict_data['bd'] = 0
+                dict_data['bl'] = 1
 
+        values_data = dict_data.values()
+        # print(self.snake.center_x, self.apple.center_x)
+        list_data = list(values_data)
+        data = np.array([list_data])
 
         output = self.model.predict(data)
         direction = output.argmax()
 
-        if direction == 'u':
+        # print(values_data)
+        # print(direction)
+        if direction == 0:
             self.snake.change_x = 0
             self.snake.change_y = 1
-        elif direction == 'r':
+        elif direction == 1:
             self.snake.change_x = 1
             self.snake.change_y = 0
-        elif direction == 'd':
+        elif direction == 2:
             self.snake.change_x = 0
             self.snake.change_y = -1
-        elif direction == 'l':
+        elif direction == 3:
             self.snake.change_x = -1
             self.snake.change_y = 0
 
