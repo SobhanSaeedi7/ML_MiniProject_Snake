@@ -25,6 +25,5 @@ pip install -r requirement.txt
 2. Then we need to make a model and train it with dataset. You just have to run `train.py`.
 3. Finally you can run `main_ml.py` and the project will work automatically.
 
-* You can also run `main_ai.py` to watch another version of game which work with rules and with running `main_manual.py` you can try the game yourself and playing with<kbd>↑</kbd>
-
-    ...<kbd>←</kbd> <kbd>↓</kbd> <kbd>→</kbd>... keys. 
+* You can also run `main_ai.py` to watch another version of game which work with rules and with running `main_manual.py` you can try the game yourself and playing with
+<kbd>↑</kbd> <kbd>←</kbd> <kbd>↓</kbd> <kbd>→</kbd> keys. 
