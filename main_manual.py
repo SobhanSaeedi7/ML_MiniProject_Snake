@@ -9,7 +9,6 @@ SCREEN_HEIGHT = 400
 SCREEN_TITLE = "Turn and Move Example"
      
 
-#  Main application class
 class MyGame(arcade.Window):
     def __init__(self):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, resizable=True)
@@ -17,21 +16,14 @@ class MyGame(arcade.Window):
 
         self.snake = Snake(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.apple = Apple(SCREEN_WIDTH, SCREEN_HEIGHT)
-        # self.set_update_rate(1/30)
 
     def on_draw(self):
-        # This command should happen before we start drawing. It will clear
-        # the screen to the background color, and erase what we drew last frame.
         arcade.start_render()
 
-        # Call draw() on all your sprite lists below
         self.snake.draw()
         self.apple.draw()
         
     def on_update(self, delta_time):
-        """
-        All the logic to move, and the game logic goes here.
-        """
         self.snake.on_update(delta_time)
         self.apple.on_update()
 
@@ -40,9 +32,6 @@ class MyGame(arcade.Window):
             self.apple = Apple(SCREEN_WIDTH, SCREEN_HEIGHT)
 
     def on_key_release(self, key, modifiers):
-        """
-        Called when the user presses a mouse button.
-        """
         if key == arcade.key.LEFT:
             self.snake.change_x = -1
             self.snake.change_y = 0

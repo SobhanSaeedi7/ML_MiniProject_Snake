@@ -31,4 +31,4 @@ model.fit(X_train, Y_train, epochs=100)
 model.evaluate(X_test, Y_test)
 
 
-model.save('model.h5')
+model.save('model/model.h5')

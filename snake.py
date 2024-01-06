@@ -12,11 +12,11 @@ class Snake(arcade.Sprite):
         self.center_y = SCREEN_HEIGHT // 2
         self.change_x = 0
         self.change_y = 0
-        self.width = 16
-        self.height = 16
+        self.width = 32
+        self.height = 32
 
-        self.color1 = arcade.color.GREEN
-        self.color2 = arcade.color.DARK_GREEN
+        self.color1 = arcade.color.BLEU_DE_FRANCE
+        self.color2 = arcade.color.BANANA_YELLOW
         self.r = 8
         self.body = []
         self.body_size = 0
@@ -28,7 +28,7 @@ class Snake(arcade.Sprite):
             else:
                 arcade.draw_circle_filled(part['center_x'], part['center_y'], self.r, self.color1)
                 
-        arcade.draw_circle_filled(self.center_x, self.center_y, self.r, self.color1)
+        arcade.draw_circle_filled(self.center_x, self.center_y, self.r, arcade.color.BLUE)
 
     def eat(self):
         self.body_size += 1

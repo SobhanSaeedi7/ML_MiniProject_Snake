@@ -11,7 +11,6 @@ SCREEN_HEIGHT = 400
 SCREEN_TITLE = "Turn and Move Example"
      
 
-#  Main application class
 class MyGame(arcade.Window):
     def __init__(self):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, resizable=True)
@@ -20,21 +19,15 @@ class MyGame(arcade.Window):
         self.snake = Snake(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.apple = Apple(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.dataset = []
-        # self.set_update_rate(1/30)
+
 
     def on_draw(self):
-        # This command should happen before we start drawing. It will clear
-        # the screen to the background color, and erase what we drew last frame.
         arcade.start_render()
 
-        # Call draw() on all your sprite lists below
         self.snake.draw()
         self.apple.draw()
         
     def on_update(self, delta_time):
-        """
-        All the logic to move, and the game logic goes here.
-        """
 
         # data = {'wu':0, 'wr':0, 'wd':0, 'wl':0, 'au':0, 'ar':0, 'ad':0, 'al':0, 'bu':0, 'br':0, 'bd':0, 'bl':0, 'direction':0}    
         data = {'au':0, 'ar':0, 'ad':0, 'al':0, 'bu':0, 'br':0, 'bd':0, 'bl':0, 'direction':0}    
@@ -87,13 +80,13 @@ class MyGame(arcade.Window):
             elif self.snake.center_x > part['center_x']:
                 data['bl'] = 1
 
-        print(data)
+
         self.dataset.append(data)
 
     def on_key_release(self, key, modifiers):
         if key == arcade.key.Q:
             df = pd.DataFrame(self.dataset)
-            df.to_csv('dataset.csv', index=False)
+            df.to_csv('dataset/dataset.csv', index=False)
             arcade.close_window()
             exit(0)
     
