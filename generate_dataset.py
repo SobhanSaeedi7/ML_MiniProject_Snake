@@ -36,19 +36,8 @@ class MyGame(arcade.Window):
         All the logic to move, and the game logic goes here.
         """
 
-        data = {'wu':0,
-                'wr':0,
-                'wd':0,
-                'wl':0,
-                'au':0,
-                'ar':0,
-                'ad':0,
-                'al':0,
-                'bu':0,
-                'br':0,
-                'bd':0,
-                'bl':0,
-                'direction':0}    
+        # data = {'wu':0, 'wr':0, 'wd':0, 'wl':0, 'au':0, 'ar':0, 'ad':0, 'al':0, 'bu':0, 'br':0, 'bd':0, 'bl':0, 'direction':0}    
+        data = {'au':0, 'ar':0, 'ad':0, 'al':0, 'bu':0, 'br':0, 'bd':0, 'bl':0, 'direction':0}    
 
         self.snake.on_update(delta_time)
         self.apple.on_update()
@@ -74,54 +63,31 @@ class MyGame(arcade.Window):
             self.snake.change_y = 0
             data['direction'] = '1'
 
-        if self.snake.center_x == self.apple.center_x and self.snake.center_y < self.apple.center_y:
+        if self.snake.center_y < self.apple.center_y:
             data['au'] = 1
-            data['ar'] = 0
-            data['ad'] = 0
-            data['al'] = 0
-        elif self.snake.center_x == self.apple.center_x and self.snake.center_y > self.apple.center_y:
-            data['au'] = 0
-            data['ar'] = 0
+        elif self.snake.center_y > self.apple.center_y:
             data['ad'] = 1
-            data['al'] = 0
-        elif self.snake.center_x < self.apple.center_x and self.snake.center_y == self.apple.center_y:
-            data['au'] = 0
+        elif self.snake.center_x < self.apple.center_x:
             data['ar'] = 1
-            data['ad'] = 0
-            data['al'] = 0
-        elif self.snake.center_x > self.apple.center_x and self.snake.center_y == self.apple.center_y:
-            data['au'] = 0
-            data['ar'] = 0
-            data['ad'] = 0
+        elif self.snake.center_x > self.apple.center_x:
             data['al'] = 1
 
-        data['wu'] = SCREEN_HEIGHT - self.snake.center_y
-        data['wr'] = SCREEN_WIDTH - self.snake.center_x
-        data['wd'] = self.snake.center_y
-        data['wl'] = self.snake.center_x
+        # data['wu'] = SCREEN_HEIGHT - self.snake.center_y
+        # data['wr'] = SCREEN_WIDTH - self.snake.center_x
+        # data['wd'] = self.snake.center_y
+        # data['wl'] = self.snake.center_x
 
         for part in self.snake.body:
-            if self.snake.center_x == part['center_x'] and self.snake.center_y < part['center_y']:
+            if self.snake.center_y < part['center_y']:
                 data['bu'] = 1
-                data['br'] = 0
-                data['bd'] = 0
-                data['bl'] = 0
-            elif self.snake.center_x == part['center_x'] and self.snake.center_y > part['center_y']:
-                data['bu'] = 0
-                data['br'] = 0
+            elif self.snake.center_y > part['center_y']:
                 data['bd'] = 1
-                data['bl'] = 0
-            elif self.snake.center_x < part['center_x'] and self.snake.center_y == part['center_y']:
-                data['bu'] = 0
+            elif self.snake.center_x < part['center_x']:
                 data['br'] = 1
-                data['bd'] = 0
-                data['bl'] = 0
-            elif self.snake.center_x > part['center_x'] and self.snake.center_y == part['center_y']:
-                data['bu'] = 0
-                data['br'] = 0
-                data['bd'] = 0
+            elif self.snake.center_x > part['center_x']:
                 data['bl'] = 1
-        # print(data)
+
+        print(data)
         self.dataset.append(data)
 
     def on_key_release(self, key, modifiers):
